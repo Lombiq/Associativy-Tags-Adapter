@@ -1,0 +1,13 @@
+Name: Associativy Tags Adapter
+AntiForgery: enabled
+Author: Piedone
+Website: http://associativy.com
+Version: 1.0
+OrchardVersion: 1.4
+Description: Associativy Tags Adapter
+Features:
+    Associativy.TagsAdapter:
+		Name: Associativy Tags Adapter
+        Description: Associativy Tags Adapter
+		Category: Associativy
+		Dependencies: Associativy
