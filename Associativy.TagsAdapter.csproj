@@ -74,14 +74,57 @@
       <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
       <Name>Orchard.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Associativy.Administration\Associativy.Administration.csproj">
+      <Project>{E45B790B-93C2-4E19-B974-1B601E290899}</Project>
+      <Name>Associativy.Administration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Associativy.Frontends\Associativy.Frontends.csproj">
+      <Project>{78ACE1AE-F7AE-4342-A83F-8FAB64514F52}</Project>
+      <Name>Associativy.Frontends</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Associativy\Associativy.csproj">
       <Project>{A8EE4964-4880-4EE1-AC0A-75492D89BBE8}</Project>
       <Name>Associativy</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orchard.Tags\Orchard.Tags.csproj">
+      <Project>{5D0F00F0-26C9-4785-AD61-B85710C60EB0}</Project>
+      <Name>Orchard.Tags</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Piedone.HelpfulLibraries\Piedone.HelpfulLibraries.csproj">
+      <Project>{EA61AD10-39D6-41A9-B12B-227F50C54158}</Project>
+      <Name>Piedone.HelpfulLibraries</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drivers\AssociativyTagGraphPartDriver.cs" />
+    <Compile Include="Drivers\AssociativyTagNodePartDriver.cs" />
+    <Compile Include="FrontendConfigurationProvider.cs" />
+    <Compile Include="Handlers\AssociativyTagGraphPartHandler.cs" />
+    <Compile Include="Handlers\AssociativyTagNodePartHandler.cs" />
+    <Compile Include="Handlers\TagsPartHandler.cs" />
+    <Compile Include="Migrations.cs" />
+    <Compile Include="Models\PendingContentItemRecord.cs" />
+    <Compile Include="Models\AssociativyTagGraphPart.cs" />
+    <Compile Include="Models\AssociativyTagGraphPartRecord.cs" />
+    <Compile Include="Models\TagGraph.cs" />
+    <Compile Include="Models\TagNodeConnectorRecord.cs" />
+    <Compile Include="Models\AssociativyTagNodePart.cs" />
+    <Compile Include="Models\AssociativyTagNodePartRecord.cs" />
+    <Compile Include="Services\ITagGraphManager.cs" />
+    <Compile Include="Services\IUpdaterService.cs" />
+    <Compile Include="Services\TagGraphManager.cs" />
+    <Compile Include="Services\TagNodeUpdater.cs" />
+    <Compile Include="Services\Updater.cs" />
+    <Compile Include="Services\UpdaterService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Placement.info">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Views\EditorTemplates\Parts.AssociativyTagGraph.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

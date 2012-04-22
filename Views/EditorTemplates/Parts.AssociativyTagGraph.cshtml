@@ -1,0 +1,11 @@
+﻿@model Associativy.TagsAdapter.Models.AssociativyTagGraphPart
+<fieldset>
+    <legend>@T("Tag graph settings")</legend>
+    <ol>
+        <li>
+            @Html.EditorFor(m => m.IsTagGraph)
+            <label for="@Html.FieldIdFor(m => m.IsTagGraph)" class="forcheckbox">@T("This is a Tag Graph")</label>
+            @Html.ValidationMessageFor(m => m.IsTagGraph)
+        </li>
+    </ol>
+</fieldset>
