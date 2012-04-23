@@ -101,7 +101,7 @@
   <ItemGroup>
     <Compile Include="Drivers\AssociativyTagGraphPartDriver.cs" />
     <Compile Include="Drivers\AssociativyTagNodePartDriver.cs" />
-    <Compile Include="FrontendConfigurationProvider.cs" />
+    <Compile Include="FrontendConfigurationHandler.cs" />
     <Compile Include="Handlers\AssociativyTagGraphPartHandler.cs" />
     <Compile Include="Handlers\AssociativyTagNodePartHandler.cs" />
     <Compile Include="Handlers\TagsPartHandler.cs" />
