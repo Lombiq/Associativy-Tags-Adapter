@@ -16,7 +16,7 @@ namespace Associativy.TagsAdapter.Handlers
     {
         public TagsPartHandler(
             ITagService tagService,
-            IUpdaterService updaterService)
+            IUpdateQueueManager updaterService)
         {
             OnUpdated<TagsPart>(
                 (context, part) =>

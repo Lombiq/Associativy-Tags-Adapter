@@ -19,12 +19,12 @@ namespace Associativy.TagsAdapter.Controllers
         private readonly IOrchardServices _orchardServices;
         private readonly IContentManager _contentManager;
         private readonly IGraphManager _graphManager;
-        private readonly IUpdaterService _updaterService;
+        private readonly IUpdateQueueManager _updaterService;
 
         public AdminController(
             IOrchardServices orchardServices,
             IGraphManager graphManager,
-            IUpdaterService updaterService)
+            IUpdateQueueManager updaterService)
         {
             _orchardServices = orchardServices;
             _contentManager = orchardServices.ContentManager;

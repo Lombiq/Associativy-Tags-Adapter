@@ -7,7 +7,7 @@ using Orchard.ContentManagement;
 
 namespace Associativy.TagsAdapter.Services
 {
-    public interface IUpdaterService : IDependency
+    public interface IUpdateQueueManager : IDependency
     {
         void AddToQueue(IContent content);
         void RemoveFromQueue(IContent content);

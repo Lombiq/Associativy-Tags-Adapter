@@ -9,12 +9,12 @@ using Orchard.Core.Common.Models;
 
 namespace Associativy.TagsAdapter.Services
 {
-    public class UpdaterService : IUpdaterService
+    public class UpdateQueueManager : IUpdateQueueManager
     {
         private readonly IRepository<PendingContentItemRecord> _repository;
         private readonly IContentManager _contentManager;
 
-        public UpdaterService(
+        public UpdateQueueManager(
             IRepository<PendingContentItemRecord> repository,
             IContentManager contentManager)
         {

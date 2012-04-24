@@ -15,25 +15,25 @@ using Associativy.Administration.Models;
 
 namespace Associativy.TagsAdapter.Services
 {
-    public class Updater : IBackgroundTask
+    public class TagGraphUpdater : IBackgroundTask
     {
         private readonly ILockFileManager _lockFileManager;
-        private readonly IUpdaterService _updaterService;
+        private readonly IUpdateQueueManager _updaterQueueManager;
         private readonly ITagGraphManager _tagGraphManager;
         private readonly ITagService _tagService;
         private readonly IAssociativyServices _associativyServices;
         private readonly IContentManager _contentManager;
 
-        public Updater(
+        public TagGraphUpdater(
             ILockFileManager lockFileManager,
-            IUpdaterService updaterService,
+            IUpdateQueueManager updaterQueueManager,
             ITagGraphManager tagGraphManager,
             ITagService tagService,
             IAssociativyServices associativyServices,
             IContentManager contentManager)
         {
             _lockFileManager = lockFileManager;
-            _updaterService = updaterService;
+            _updaterQueueManager = updaterQueueManager;
             _tagGraphManager = tagGraphManager;
             _tagService = tagService;
             _associativyServices = associativyServices;
@@ -50,7 +50,7 @@ namespace Associativy.TagsAdapter.Services
 
                     if (graphs.Count() == 0) return;
 
-                    var pending = _updaterService.GetPendingContents();
+                    var pending = _updaterQueueManager.GetPendingContents();
 
                     foreach (var content in pending)
                     {
@@ -94,7 +94,7 @@ namespace Associativy.TagsAdapter.Services
                             }
                         }
 
-                        _updaterService.RemoveFromQueue(content);
+                        _updaterQueueManager.RemoveFromQueue(content);
                     }
                 }
             }

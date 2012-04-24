@@ -112,11 +112,11 @@
     <Compile Include="Models\AssociativyTagNodePart.cs" />
     <Compile Include="Models\AssociativyTagNodePartRecord.cs" />
     <Compile Include="Services\ITagGraphManager.cs" />
-    <Compile Include="Services\IUpdaterService.cs" />
+    <Compile Include="Services\IUpdateQueueManager.cs" />
     <Compile Include="Services\TagGraphManager.cs" />
     <Compile Include="Services\TagNodeUpdater.cs" />
-    <Compile Include="Services\Updater.cs" />
-    <Compile Include="Services\UpdaterService.cs" />
+    <Compile Include="Services\TagGraphUpdater.cs" />
+    <Compile Include="Services\UpdateQueueManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Placement.info">
