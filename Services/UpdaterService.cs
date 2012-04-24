@@ -24,6 +24,9 @@ namespace Associativy.TagsAdapter.Services
 
         public void AddToQueue(IContent content)
         {
+            // There is already a record saved for this content
+            if (_repository.Count(record => record.ContentItemId == content.Id) != 0) return;
+
             _repository.Create(new PendingContentItemRecord
             {
                 ContentItemId = content.Id
