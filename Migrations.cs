@@ -28,6 +28,7 @@ namespace Associativy.TagsAdapter
             ContentDefinitionManager.AlterTypeDefinition("AssociativyTagNode",
                 cfg => cfg
                     .WithPart(typeof(AssociativyTagNodePart).Name)
+                    .WithPart("CommonPart")
                     .WithLabel()
             );
 
