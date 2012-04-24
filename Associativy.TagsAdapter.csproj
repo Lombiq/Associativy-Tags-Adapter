@@ -110,7 +110,6 @@
     <Compile Include="Models\AssociativyTagGraphPart.cs" />
     <Compile Include="Models\AssociativyTagGraphPartRecord.cs" />
     <Compile Include="Models\TagGraph.cs" />
-    <Compile Include="Models\TagNodeConnectorRecord.cs" />
     <Compile Include="Models\AssociativyTagNodePart.cs" />
     <Compile Include="Models\AssociativyTagNodePartRecord.cs" />
     <Compile Include="Services\ITagGraphManager.cs" />
