@@ -13,8 +13,6 @@ namespace Associativy.TagsAdapter
     {
         public int Create()
         {
-            SchemaBuilder.CreateNodeToNodeConnectorRecordTable<TagNodeConnectorRecord>();
-
             SchemaBuilder.CreateTable(typeof(PendingContentItemRecord).Name,
                 table => table
                     .Column<int>("Id", column => column.PrimaryKey().Identity())
