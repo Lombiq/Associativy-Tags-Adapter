@@ -33,6 +33,8 @@ namespace Associativy.TagsAdapter.Services
         {
             var graphs = _tagGraphManager.GetTagGraphs();
 
+            if (graphs.Count() == 0) return;
+
             foreach (var node in _contentManager.Query<AssociativyTagNodePart>("AssociativyTagNode").Join<AssociativyTagNodePartRecord>().List())
             {
                 try

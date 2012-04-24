@@ -48,11 +48,14 @@ namespace Associativy.TagsAdapter.Services
                 {
                     var graphs = _tagGraphManager.GetTagGraphs();
 
+                    if (graphs.Count() == 0) return;
+
                     var pending = _updaterService.GetPendingContents();
 
                     foreach (var content in pending)
                     {
                         var tags = content.ContentItem.As<TagsPart>().CurrentTags;
+                        var tagNodes = new List<IContent>();
                         foreach (var tag in tags)
                         {
                             // Maybe this could be optimized by doing it in one query for all tag ids?
@@ -64,6 +67,8 @@ namespace Associativy.TagsAdapter.Services
                                 tagNode.As<AssociativyNodeLabelPart>().Label = tag.TagName;
                                 _contentManager.Create(tagNode);
                             }
+
+                            tagNodes.Add(tagNode);
 
                             var taggedContents = _tagService.GetTaggedContentItems(tag.Id); // Includes the current item too
                             foreach (var taggedContent in taggedContents)
@@ -77,12 +82,12 @@ namespace Associativy.TagsAdapter.Services
 
                         // Removing connections from the content that are not among the current tags (i.e. removed tags).
                         // This also removes any other connected contents too...
-                        var tagIds = tags.Select(tag => tag.Id);
+                        var tagNodeIds = tagNodes.Select(tag => tag.Id);
                         foreach (var graph in graphs)
                         {
                             foreach (var neighbourId in graph.ConnectionManager.GetNeighbourIds(graph.GraphContext, content))
                             {
-                                if (!tagIds.Contains(neighbourId))
+                                if (!tagNodeIds.Contains(neighbourId))
                                 {
                                     graph.ConnectionManager.Disconnect(graph.GraphContext, neighbourId, content.Id);
                                 }
