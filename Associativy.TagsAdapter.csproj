@@ -95,10 +95,9 @@
       <Name>Piedone.HelpfulLibraries</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Drivers\AssociativyTagGraphPartDriver.cs" />
     <Compile Include="Drivers\AssociativyTagNodePartDriver.cs" />
     <Compile Include="FrontendConfigurationHandler.cs" />

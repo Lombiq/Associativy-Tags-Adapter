@@ -1,4 +1,6 @@
-﻿@model Associativy.TagsAdapter.Models.AssociativyTagGraphPart
+﻿@using Orchard.ContentManagement;
+@model Associativy.TagsAdapter.Models.AssociativyTagGraphPart
+
 <fieldset>
     <legend>@T("Tag graph settings")</legend>
     <ol>
@@ -9,3 +11,34 @@
         </li>
     </ol>
 </fieldset>
+@*Already saved*@
+@if (Model.Id != 0)
+{
+    Script.Require("jQuery").AtFoot();
+    using (Script.Foot())
+    {
+        <script type="text/javascript">
+            (function ($) {
+                $.extend({
+                    associativy: {
+                        processTaggedItems: function () {
+                            $("#button\\.ProcessTaggedItems").attr("disabled", "disabled");
+                            var url = '@Url.Action("ProcessTaggedItems", new { Controller = "Admin", Area = "Associativy.TagsAdapter", GraphName = Model.As<Associativy.Administration.Models.AssociativyGraphPart>().GraphName })';
+                            var postData = { __RequestVerificationToken: "@Html.AntiForgeryTokenValueOrchard()" };
+                            $.post(url, postData, function (response) {
+                                alert("@T("Items processed. The graph will be soon updated.")");
+                                $("#button\\.ProcessTaggedItems").removeAttr("disabled");
+                            });
+                        }
+                    }
+                });
+            })(jQuery);
+        </script>
+    }
+
+    <fieldset>
+        <button type="button" id="button.ProcessTaggedItems" name="button.ProcessTaggedItems" value="ProcessTaggedItems"
+            onclick="$.associativy.processTaggedItems(); return false;">@T("Process all tagged and contained items")</button>
+        <span class="hint">@T("This will process all tagged content item stored in the graph and e.g. add new connections.")</span>
+    </fieldset>   
+}
