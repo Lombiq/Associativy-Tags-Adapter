@@ -8,29 +8,34 @@ using Associativy.TagsAdapter.Models;
 using Associativy.Services;
 using Associativy.GraphDiscovery;
 using Associativy.Models;
+using Orchard.Tasks.Scheduling;
+using Orchard.Services;
 
 namespace Associativy.TagsAdapter.Services
 {
-    // This should run e.g. every hour, not every minute
-    // With static LastRunDateTime?
-    public class TagNodeUpdater : IBackgroundTask
+    public class TagNodeUpdater : IScheduledTaskHandler
     {
         private readonly IContentManager _contentManager;
         private readonly IAssociativyServices _associativyServices;
         private readonly ITagGraphManager _tagGraphManager;
+        private readonly IUpdateTaskRenewer _updateTaskRenewer;
 
         public TagNodeUpdater(
             IContentManager contentManager,
             IAssociativyServices associativyServices,
-            ITagGraphManager tagGraphManager)
+            ITagGraphManager tagGraphManager,
+            IUpdateTaskRenewer updateTaskRenewer)
         {
             _contentManager = contentManager;
             _associativyServices = associativyServices;
             _tagGraphManager = tagGraphManager;
+            _updateTaskRenewer = updateTaskRenewer;
         }
 
-        public void Sweep()
+        public void Process(ScheduledTaskContext context)
         {
+            if (context.Task.TaskType != "AssociativyTagNodeUpdate") return;
+
             var graphs = _tagGraphManager.GetTagGraphs();
 
             if (graphs.Count() == 0) return;
@@ -51,10 +56,12 @@ namespace Associativy.TagsAdapter.Services
                     _contentManager.Remove(node.ContentItem);
                     foreach (var graph in graphs)
                     {
-                        graph.ConnectionManager.DeleteFromNode(graph.GraphContext, node); 
+                        graph.ConnectionManager.DeleteFromNode(graph.GraphContext, node);
                     }
                 }
             }
+
+            _updateTaskRenewer.RenewTagNodeUpdate();
         }
     }
 }
