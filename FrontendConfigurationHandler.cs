@@ -25,7 +25,7 @@ namespace Associativy.TagsAdapter
             _graphManager = graphManager;
         }
 
-        public void SetupViewModel(IEngineContext engineContext, IGraphContext graphContext, IContent node, Frontends.Engines.JIT.ViewModels.NodeViewModel viewModel)
+        public void SetupViewModel(FrontendContext frontendContext, IContent node, Frontends.Engines.JIT.ViewModels.NodeViewModel viewModel)
         {
             if (node.ContentItem.ContentType == "AssociativyTagNode")
             {
