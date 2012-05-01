@@ -26,8 +26,7 @@
                             var url = '@Url.Action("ProcessTaggedItems", new { Controller = "Admin", Area = "Associativy.TagsAdapter", GraphName = Model.As<Associativy.Administration.Models.AssociativyGraphPart>().GraphName })';
                             var postData = { __RequestVerificationToken: "@Html.AntiForgeryTokenValueOrchard()" };
                             $.post(url, postData, function (response) {
-                                alert("@T("Items processed. The graph will be soon updated.")");
-                                $("#button\\.ProcessTaggedItems").removeAttr("disabled");
+                                window.location.reload();
                             });
                         }
                     }

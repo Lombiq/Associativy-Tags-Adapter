@@ -10,6 +10,8 @@ using Associativy.Administration;
 using Associativy.TagsAdapter.Services;
 using Associativy.Services;
 using Associativy.GraphDiscovery;
+using Orchard.UI.Notify;
+using Orchard.Localization;
 
 namespace Associativy.TagsAdapter.Controllers
 {
@@ -21,6 +23,8 @@ namespace Associativy.TagsAdapter.Controllers
         private readonly IGraphManager _graphManager;
         private readonly IUpdateQueueManager _updaterService;
 
+        public Localizer T { get; set; }
+
         public AdminController(
             IOrchardServices orchardServices,
             IGraphManager graphManager,
@@ -30,6 +34,8 @@ namespace Associativy.TagsAdapter.Controllers
             _contentManager = orchardServices.ContentManager;
             _graphManager = graphManager;
             _updaterService = updaterService;
+
+            T = NullLocalizer.Instance;
         }
 
         [HttpPost]
@@ -43,6 +49,8 @@ namespace Associativy.TagsAdapter.Controllers
             {
                 _updaterService.AddToQueue(item);
             }
+
+            _orchardServices.Notifier.Information(T("Items processed. The graph will be soon updated."));
         }
     }
 }
