@@ -10,6 +10,7 @@ using Associativy.GraphDiscovery;
 using Associativy.Models;
 using Orchard.Tasks.Scheduling;
 using Orchard.Services;
+using Orchard.Exceptions;
 
 namespace Associativy.TagsAdapter.Services
 {
@@ -50,8 +51,10 @@ namespace Associativy.TagsAdapter.Services
                         node.As<AssociativyNodeLabelPart>().Label = node.Tag.TagName;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    if (ex.IsFatal()) throw;
+
                     // The tag was deleted
                     _contentManager.Remove(node.ContentItem);
                     foreach (var graph in graphs)
