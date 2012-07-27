@@ -5,6 +5,7 @@ using System.Text;
 using Orchard.ContentManagement.Drivers;
 using Associativy.TagsAdapter.Models;
 using Orchard.ContentManagement;
+using Orchard.ContentManagement.Handlers;
 
 namespace Associativy.TagsAdapter.Drivers
 {
@@ -31,6 +32,16 @@ namespace Associativy.TagsAdapter.Drivers
             updater.TryUpdateModel(part, Prefix, null, null);
 
             return Editor(part, shapeHelper);
+        }
+
+        protected override void Exporting(AssociativyTagGraphPart part, ExportContentContext context)
+        {
+            context.Element(part.PartDefinition.Name).SetAttributeValue("IsTagGraph", part.IsTagGraph);
+        }
+
+        protected override void Importing(AssociativyTagGraphPart part, ImportContentContext context)
+        {
+            context.ImportAttribute(part.PartDefinition.Name, "IsTagGraph", value => part.IsTagGraph = bool.Parse(value));
         }
     }
 }
