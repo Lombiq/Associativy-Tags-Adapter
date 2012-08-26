@@ -10,4 +10,4 @@ Features:
 		Name: Associativy Tags Adapter
         Description: Associativy Tags Adapter
 		Category: Associativy
-		Dependencies: Associativy.Administration.UserGraphs, Associativy.Frontends, Orchard.Tags, Piedone.HelpfulLibraries.Tasks
+		Dependencies: Associativy.Administration.AdhocGraphs, Associativy.Frontends, Orchard.Tags, Piedone.HelpfulLibraries.Tasks
