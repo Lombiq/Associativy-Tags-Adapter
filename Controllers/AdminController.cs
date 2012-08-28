@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Orchard.UI.Admin;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Orchard.ContentManagement;
-using Orchard;
 using Associativy.Administration;
-using Associativy.TagsAdapter.Services;
-using Associativy.Services;
 using Associativy.GraphDiscovery;
-using Orchard.UI.Notify;
+using Associativy.TagsAdapter.Services;
+using Orchard;
+using Orchard.ContentManagement;
 using Orchard.Localization;
+using Orchard.UI.Admin;
+using Orchard.UI.Notify;
 
 namespace Associativy.TagsAdapter.Controllers
 {

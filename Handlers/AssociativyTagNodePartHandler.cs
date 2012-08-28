@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Associativy.TagsAdapter.Models;
 using Orchard.ContentManagement.Handlers;
 using Orchard.Data;
-using Associativy.TagsAdapter.Models;
 
 namespace Associativy.TagsAdapter.Handlers
 {

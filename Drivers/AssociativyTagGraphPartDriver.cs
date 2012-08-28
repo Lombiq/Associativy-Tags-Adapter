@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Orchard.ContentManagement.Drivers;
-using Associativy.TagsAdapter.Models;
+﻿using Associativy.TagsAdapter.Models;
 using Orchard.ContentManagement;
+using Orchard.ContentManagement.Drivers;
 using Orchard.ContentManagement.Handlers;
 
 namespace Associativy.TagsAdapter.Drivers

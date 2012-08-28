@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Orchard.Environment;
-using Orchard.Tasks.Scheduling;
+﻿using Orchard.Environment;
 using Orchard.Services;
+using Orchard.Tasks.Scheduling;
 
 namespace Associativy.TagsAdapter.Services
 {

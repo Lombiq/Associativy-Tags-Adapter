@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Associativy.Frontends.Engines.Jit;
-using Associativy.Frontends.Engines;
+﻿using Associativy.Frontends.Engines.Jit;
+using Associativy.Frontends.EventHandlers;
 using Associativy.GraphDiscovery;
+using Associativy.Models;
 using Orchard.ContentManagement;
 using Orchard.ContentManagement.Aspects;
-using Associativy.Models;
-using Associativy.Frontends.EventHandlers;
-using Associativy.Frontends.Models;
-using Orchard.Core.Common.Models;
-using Orchard.Core.Title.Models;
 
 namespace Associativy.TagsAdapter
 {

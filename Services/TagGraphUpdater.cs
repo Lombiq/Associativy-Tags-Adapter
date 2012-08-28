@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Orchard.Tasks;
-using Piedone.HelpfulLibraries.Tasks;
+using Associativy.Models;
 using Associativy.Services;
+using Associativy.TagsAdapter.Models;
 using Orchard.ContentManagement;
 using Orchard.Tags.Models;
-using Associativy.GraphDiscovery;
 using Orchard.Tags.Services;
-using Associativy.TagsAdapter.Models;
-using Associativy.Models;
-using Associativy.Administration.Models;
+using Orchard.Tasks;
+using Piedone.HelpfulLibraries.Tasks;
 
 namespace Associativy.TagsAdapter.Services
 {
