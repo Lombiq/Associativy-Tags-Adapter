@@ -30,7 +30,7 @@ namespace Associativy.TagsAdapter.Services
                 graphInfos.Add(new TagGraphImpl
                 {
                     GraphContext = graphContext,
-                    ConnectionManager = _associativyServices.GraphManager.FindGraph(graphContext).ConnectionManager
+                    ConnectionManager = _associativyServices.GraphManager.FindGraph(graphContext).PathServices.ConnectionManager
                 });
             }
 
