@@ -78,14 +78,14 @@ namespace Associativy.TagsAdapter.Services
 
                         // Removing connections from the content that are not among the current tags (i.e. removed tags).
                         // This also removes any other connected contents too...
-                        var tagNodeIds = tagNodes.Select(tag => tag.Id);
+                        var tagNodeIds = tagNodes.Select(tag => tag.ContentItem.Id);
                         foreach (var graph in graphs)
                         {
                             foreach (var neighbourId in graph.ConnectionManager.GetNeighbourIds(graph.GraphContext, content))
                             {
                                 if (!tagNodeIds.Contains(neighbourId))
                                 {
-                                    graph.ConnectionManager.Disconnect(graph.GraphContext, neighbourId, content.Id);
+                                    graph.ConnectionManager.Disconnect(graph.GraphContext, neighbourId, content.ContentItem.Id);
                                 }
                             }
                         }

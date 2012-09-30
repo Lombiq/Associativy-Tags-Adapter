@@ -23,17 +23,17 @@ namespace Associativy.TagsAdapter.Services
         public void AddToQueue(IContent content)
         {
             // There is already a record saved for this content
-            if (_repository.Count(record => record.ContentItemId == content.Id) != 0) return;
+            if (_repository.Count(record => record.ContentItemId == content.ContentItem.Id) != 0) return;
 
             _repository.Create(new PendingContentItemRecord
             {
-                ContentItemId = content.Id
+                ContentItemId = content.ContentItem.Id
             });
         }
 
         public void RemoveFromQueue(IContent content)
         {
-            var pending = _repository.Fetch(record => record.ContentItemId == content.Id).FirstOrDefault();
+            var pending = _repository.Fetch(record => record.ContentItemId == content.ContentItem.Id).FirstOrDefault();
             if (pending == null) return;
 
             _repository.Delete(pending);
