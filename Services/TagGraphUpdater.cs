@@ -40,58 +40,57 @@ namespace Associativy.TagsAdapter.Services
         {
             using (var lockFile = _lockFileManager.TryAcquireLock("Associativy.TagsAdapter.Services.NodesUpdater"))
             {
-                if (lockFile != null)
+                if (lockFile == null) return;
+
+                var graphs = _tagGraphManager.GetTagGraphs();
+
+                if (graphs.Count() == 0) return;
+
+                var pending = _updaterQueueManager.GetPendingContents();
+
+                foreach (var content in pending)
                 {
-                    var graphs = _tagGraphManager.GetTagGraphs();
-
-                    if (graphs.Count() == 0) return;
-
-                    var pending = _updaterQueueManager.GetPendingContents();
-
-                    foreach (var content in pending)
+                    var tags = content.ContentItem.As<TagsPart>().CurrentTags;
+                    var tagNodes = new List<IContent>();
+                    foreach (var tag in tags)
                     {
-                        var tags = content.ContentItem.As<TagsPart>().CurrentTags;
-                        var tagNodes = new List<IContent>();
-                        foreach (var tag in tags)
+                        // Maybe this could be optimized by doing it in one query for all tag ids?
+                        var tagNode = _contentManager.Query().Where<AssociativyTagNodePartRecord>(node => node.Tag.Id == tag.Id).List().FirstOrDefault();
+                        if (tagNode == null)
                         {
-                            // Maybe this could be optimized by doing it in one query for all tag ids?
-                            var tagNode = _contentManager.Query().Where<AssociativyTagNodePartRecord>(node => node.Tag.Id == tag.Id).List().FirstOrDefault();
-                            if (tagNode == null)
-                            {
-                                tagNode = _contentManager.New("AssociativyTagNode");
-                                tagNode.As<AssociativyTagNodePart>().Tag = tag;
-                                tagNode.As<AssociativyNodeLabelPart>().Label = tag.TagName;
-                                _contentManager.Create(tagNode);
-                            }
-
-                            tagNodes.Add(tagNode);
-
-                            var taggedContents = _tagService.GetTaggedContentItems(tag.Id); // Includes the current item too
-                            foreach (var taggedContent in taggedContents)
-                            {
-                                foreach (var graph in graphs)
-                                {
-                                    graph.ConnectionManager.Connect(graph.GraphContext, tagNode, taggedContent);
-                                }
-                            }
+                            tagNode = _contentManager.New("AssociativyTagNode");
+                            tagNode.As<AssociativyTagNodePart>().Tag = tag;
+                            tagNode.As<AssociativyNodeLabelPart>().Label = tag.TagName;
+                            _contentManager.Create(tagNode);
                         }
 
-                        // Removing connections from the content that are not among the current tags (i.e. removed tags).
-                        // This also removes any other connected contents too...
-                        var tagNodeIds = tagNodes.Select(tag => tag.ContentItem.Id);
-                        foreach (var graph in graphs)
+                        tagNodes.Add(tagNode);
+
+                        var taggedContents = _tagService.GetTaggedContentItems(tag.Id); // Includes the current item too
+                        foreach (var taggedContent in taggedContents)
                         {
-                            foreach (var neighbourId in graph.ConnectionManager.GetNeighbourIds(graph.GraphContext, content))
+                            foreach (var graph in graphs)
                             {
-                                if (!tagNodeIds.Contains(neighbourId))
-                                {
-                                    graph.ConnectionManager.Disconnect(graph.GraphContext, neighbourId, content.ContentItem.Id);
-                                }
+                                graph.ConnectionManager.Connect(graph.GraphContext, tagNode, taggedContent);
                             }
                         }
-
-                        _updaterQueueManager.RemoveFromQueue(content);
                     }
+
+                    // Removing connections from the content that are not among the current tags (i.e. removed tags).
+                    // This also removes any other connected contents too...
+                    var tagNodeIds = tagNodes.Select(tag => tag.ContentItem.Id);
+                    foreach (var graph in graphs)
+                    {
+                        foreach (var neighbourId in graph.ConnectionManager.GetNeighbourIds(graph.GraphContext, content))
+                        {
+                            if (!tagNodeIds.Contains(neighbourId))
+                            {
+                                graph.ConnectionManager.Disconnect(graph.GraphContext, neighbourId, content.ContentItem.Id);
+                            }
+                        }
+                    }
+
+                    _updaterQueueManager.RemoveFromQueue(content);
                 }
             }
         }
