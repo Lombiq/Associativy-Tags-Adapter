@@ -1,6 +1,7 @@
 ﻿using Orchard.Environment;
 using Orchard.Services;
 using Orchard.Tasks.Scheduling;
+using Piedone.HelpfulLibraries.Tasks;
 
 namespace Associativy.TagsAdapter.Services
 {
@@ -19,7 +20,7 @@ namespace Associativy.TagsAdapter.Services
 
         public void RenewTagNodeUpdate()
         {
-            _scheduledTaskManager.CreateTask("AssociativyTagNodeUpdate", _clock.UtcNow.AddHours(1), null);
+            _scheduledTaskManager.CreateTaskIfNew("AssociativyTagNodeUpdate", _clock.UtcNow.AddHours(1), null);
         }
 
         public void Activated()
