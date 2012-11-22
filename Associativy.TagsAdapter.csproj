@@ -126,7 +126,7 @@
     <Content Include="Placement.info">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Views\EditorTemplates\Parts.AssociativyTagGraph.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts.AssociativyTagGraph.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
