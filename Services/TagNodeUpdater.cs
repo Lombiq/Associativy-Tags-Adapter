@@ -16,6 +16,7 @@ namespace Associativy.TagsAdapter.Services
         private readonly ITagGraphManager _tagGraphManager;
         private readonly IUpdateTaskRenewer _updateTaskRenewer;
 
+
         public TagNodeUpdater(
             IContentManager contentManager,
             IAssociativyServices associativyServices,
@@ -27,6 +28,7 @@ namespace Associativy.TagsAdapter.Services
             _tagGraphManager = tagGraphManager;
             _updateTaskRenewer = updateTaskRenewer;
         }
+
 
         public void Process(ScheduledTaskContext context)
         {

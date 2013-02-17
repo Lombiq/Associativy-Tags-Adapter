@@ -12,6 +12,7 @@ namespace Associativy.TagsAdapter.Services
         private readonly IContentManager _contentManager;
         private readonly IAssociativyServices _associativyServices;
 
+
         public TagGraphManager(
             IContentManager contentManager,
             IAssociativyServices associativyServices)
@@ -19,6 +20,7 @@ namespace Associativy.TagsAdapter.Services
             _contentManager = contentManager;
             _associativyServices = associativyServices;
         }
+
 
         public IEnumerable<TagGraph> GetTagGraphs()
         {

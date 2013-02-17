@@ -21,6 +21,7 @@ namespace Associativy.TagsAdapter.Controllers
 
         public Localizer T { get; set; }
 
+
         public AdminController(
             IOrchardServices orchardServices,
             IGraphManager graphManager,
@@ -33,6 +34,7 @@ namespace Associativy.TagsAdapter.Controllers
 
             T = NullLocalizer.Instance;
         }
+
 
         [HttpPost]
         public void ProcessTaggedItems(string graphName)

@@ -12,10 +12,12 @@ namespace Associativy.TagsAdapter
     {
         private readonly IGraphManager _graphManager;
 
+
         public FrontendConfigurationHandler(IGraphManager graphManager)
         {
             _graphManager = graphManager;
         }
+
 
         public void SetupViewModel(FrontendContext frontendContext, IContent node, Frontends.Engines.Jit.ViewModels.NodeViewModel viewModel)
         {

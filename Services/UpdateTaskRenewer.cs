@@ -10,6 +10,7 @@ namespace Associativy.TagsAdapter.Services
         private readonly IScheduledTaskManager _scheduledTaskManager;
         private readonly IClock _clock;
 
+
         public UpdateTaskRenewer(
             IScheduledTaskManager scheduledTaskManager,
             IClock clock)
@@ -17,6 +18,7 @@ namespace Associativy.TagsAdapter.Services
             _scheduledTaskManager = scheduledTaskManager;
             _clock = clock;
         }
+
 
         public void RenewTagNodeUpdate()
         {

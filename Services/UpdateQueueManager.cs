@@ -12,6 +12,7 @@ namespace Associativy.TagsAdapter.Services
         private readonly IRepository<PendingContentItemRecord> _repository;
         private readonly IContentManager _contentManager;
 
+
         public UpdateQueueManager(
             IRepository<PendingContentItemRecord> repository,
             IContentManager contentManager)
@@ -19,6 +20,7 @@ namespace Associativy.TagsAdapter.Services
             _repository = repository;
             _contentManager = contentManager;
         }
+
 
         public void AddToQueue(IContent content)
         {

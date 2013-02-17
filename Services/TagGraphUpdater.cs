@@ -20,6 +20,7 @@ namespace Associativy.TagsAdapter.Services
         private readonly IAssociativyServices _associativyServices;
         private readonly IContentManager _contentManager;
 
+
         public TagGraphUpdater(
             ILockFileManager lockFileManager,
             IUpdateQueueManager updaterQueueManager,
@@ -35,6 +36,7 @@ namespace Associativy.TagsAdapter.Services
             _associativyServices = associativyServices;
             _contentManager = contentManager;
         }
+
 
         public void Sweep()
         {
