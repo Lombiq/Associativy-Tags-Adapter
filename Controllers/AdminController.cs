@@ -41,7 +41,7 @@ namespace Associativy.TagsAdapter.Controllers
         {
             if (!_orchardServices.Authorizer.Authorize(Permissions.ManageAssociativyGraphs)) return;
 
-            var graphDescriptor = _graphManager.FindGraph(new GraphContext { GraphName = graphName });
+            var graphDescriptor = _graphManager.FindGraph(new GraphContext { Name = graphName });
 
             foreach (var item in _contentManager.Query(graphDescriptor.ContentTypes.Where(type => type != "AssociativyTagNode").ToArray()).List())
             {

@@ -28,11 +28,11 @@ namespace Associativy.TagsAdapter.Services
             var graphInfos = new List<TagGraph>();
             foreach (var graph in graphs)
             {
-                var graphContext = new GraphContext { GraphName = graph.GraphName };
+                var graphContext = new GraphContext { Name = graph.GraphName };
                 graphInfos.Add(new TagGraphImpl
                 {
                     GraphContext = graphContext,
-                    ConnectionManager = _associativyServices.GraphManager.FindGraph(graphContext).PathServices.ConnectionManager
+                    ConnectionManager = _associativyServices.GraphManager.FindGraph(graphContext).Services.ConnectionManager
                 });
             }
 

@@ -56,7 +56,7 @@ namespace Associativy.TagsAdapter.Services
                     _contentManager.Remove(node.ContentItem);
                     foreach (var graph in graphs)
                     {
-                        graph.ConnectionManager.DeleteFromNode(graph.GraphContext, node);
+                        graph.ConnectionManager.DeleteFromNode(node);
                     }
                 }
             }

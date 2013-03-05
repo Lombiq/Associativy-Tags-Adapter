@@ -73,7 +73,7 @@ namespace Associativy.TagsAdapter.Services
                         {
                             foreach (var graph in graphs)
                             {
-                                graph.ConnectionManager.Connect(graph.GraphContext, tagNode, taggedContent);
+                                graph.ConnectionManager.Connect(tagNode, taggedContent);
                             }
                         }
                     }
@@ -83,11 +83,11 @@ namespace Associativy.TagsAdapter.Services
                     var tagNodeIds = tagNodes.Select(tag => tag.ContentItem.Id);
                     foreach (var graph in graphs)
                     {
-                        foreach (var neighbourId in graph.ConnectionManager.GetNeighbourIds(graph.GraphContext, content))
+                        foreach (var neighbourId in graph.ConnectionManager.GetNeighbourIds(content))
                         {
                             if (!tagNodeIds.Contains(neighbourId))
                             {
-                                graph.ConnectionManager.Disconnect(graph.GraphContext, neighbourId, content.ContentItem.Id);
+                                graph.ConnectionManager.Disconnect(neighbourId, content.ContentItem.Id);
                             }
                         }
                     }
