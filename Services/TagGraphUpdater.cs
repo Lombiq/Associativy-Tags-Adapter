@@ -83,7 +83,7 @@ namespace Associativy.TagsAdapter.Services
                     var tagNodeIds = tagNodes.Select(tag => tag.ContentItem.Id);
                     foreach (var graph in graphs)
                     {
-                        foreach (var neighbourId in graph.ConnectionManager.GetNeighbourIds(content))
+                        foreach (var neighbourId in graph.ConnectionManager.GetNeighbourIds(content, 0, int.MaxValue))
                         {
                             if (!tagNodeIds.Contains(neighbourId))
                             {
