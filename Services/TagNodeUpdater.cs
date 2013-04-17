@@ -4,29 +4,35 @@ using Associativy.Models;
 using Associativy.Services;
 using Associativy.TagsAdapter.Models;
 using Orchard.ContentManagement;
+using Orchard.Environment;
 using Orchard.Exceptions;
+using Orchard.Services;
 using Orchard.Tasks.Scheduling;
+using Piedone.HelpfulLibraries.Tasks;
 
 namespace Associativy.TagsAdapter.Services
 {
-    public class TagNodeUpdater : IScheduledTaskHandler
+    public class TagNodeUpdater : IScheduledTaskHandler, IOrchardShellEvents
     {
         private readonly IContentManager _contentManager;
         private readonly IAssociativyServices _associativyServices;
         private readonly ITagGraphManager _tagGraphManager;
-        private readonly IUpdateTaskRenewer _updateTaskRenewer;
+        private readonly IScheduledTaskManager _scheduledTaskManager;
+        private readonly IClock _clock;
 
 
         public TagNodeUpdater(
             IContentManager contentManager,
             IAssociativyServices associativyServices,
             ITagGraphManager tagGraphManager,
-            IUpdateTaskRenewer updateTaskRenewer)
+            IScheduledTaskManager scheduledTaskManager,
+            IClock clock)
         {
             _contentManager = contentManager;
             _associativyServices = associativyServices;
             _tagGraphManager = tagGraphManager;
-            _updateTaskRenewer = updateTaskRenewer;
+            _scheduledTaskManager = scheduledTaskManager;
+            _clock = clock;
         }
 
 
@@ -34,8 +40,10 @@ namespace Associativy.TagsAdapter.Services
         {
             if (context.Task.TaskType != "AssociativyTagNodeUpdate") return;
 
+            Renew(true);
+            
             var graphs = _tagGraphManager.GetTagGraphs();
-
+            
             if (graphs.Count() == 0) return;
 
             foreach (var node in _contentManager.Query<AssociativyTagNodePart>("AssociativyTagNode").Join<AssociativyTagNodePartRecord>().List())
@@ -60,8 +68,21 @@ namespace Associativy.TagsAdapter.Services
                     }
                 }
             }
+        }
 
-            _updateTaskRenewer.RenewTagNodeUpdate();
+        public void Activated()
+        {
+            Renew(false);
+        }
+
+        public void Terminating()
+        {
+        }
+
+
+        private void Renew(bool calledFromTaskProcess)
+        {
+            _scheduledTaskManager.CreateTaskIfNew("AssociativyTagNodeUpdate", _clock.UtcNow.AddHours(1), null, calledFromTaskProcess);
         }
     }
 }
