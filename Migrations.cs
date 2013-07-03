@@ -26,7 +26,7 @@ namespace Associativy.TagsAdapter
                     .WithPart(typeof(AssociativyTagNodePart).Name)
                     .WithPart("CommonPart")
                     .WithLabel()
-            );
+                );
 
             SchemaBuilder.CreateTable(typeof(AssociativyTagGraphPartRecord).Name,
                 table => table
@@ -37,7 +37,7 @@ namespace Associativy.TagsAdapter
             ContentDefinitionManager.AlterTypeDefinition("AssociativyGraph",
                 cfg => cfg
                     .WithPart(typeof(AssociativyTagGraphPart).Name)
-            );
+                );
 
 
             return 1;
