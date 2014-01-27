@@ -6,8 +6,8 @@ namespace Associativy.TagsAdapter.Models
     {
         public bool IsTagGraph
         {
-            get { return Record.IsTagGraph; }
-            set { Record.IsTagGraph = value; }
+            get { return Retrieve(x => x.IsTagGraph); }
+            set { Store(x => x.IsTagGraph, value); }
         }
     }
 }
