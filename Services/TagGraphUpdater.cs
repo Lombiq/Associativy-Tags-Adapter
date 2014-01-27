@@ -8,12 +8,13 @@ using Orchard.Tags.Models;
 using Orchard.Tags.Services;
 using Orchard.Tasks;
 using Piedone.HelpfulLibraries.Tasks;
+using Piedone.HelpfulLibraries.Tasks.Locking;
 
 namespace Associativy.TagsAdapter.Services
 {
     public class TagGraphUpdater : IBackgroundTask
     {
-        private readonly ILockFileManager _lockFileManager;
+        private readonly IDistributedLockManager _lockManager;
         private readonly IUpdateQueueManager _updaterQueueManager;
         private readonly ITagGraphManager _tagGraphManager;
         private readonly ITagService _tagService;
@@ -22,14 +23,14 @@ namespace Associativy.TagsAdapter.Services
 
 
         public TagGraphUpdater(
-            ILockFileManager lockFileManager,
+            IDistributedLockManager lockManager,
             IUpdateQueueManager updaterQueueManager,
             ITagGraphManager tagGraphManager,
             ITagService tagService,
             IAssociativyServices associativyServices,
             IContentManager contentManager)
         {
-            _lockFileManager = lockFileManager;
+            _lockManager = lockManager;
             _updaterQueueManager = updaterQueueManager;
             _tagGraphManager = tagGraphManager;
             _tagService = tagService;
@@ -40,7 +41,7 @@ namespace Associativy.TagsAdapter.Services
 
         public void Sweep()
         {
-            using (var lockFile = _lockFileManager.TryAcquireLock("Associativy.TagsAdapter.Services.NodesUpdater"))
+            using (var lockFile = _lockManager.TryAcquireLock("Associativy.TagsAdapter.Services.NodesUpdater"))
             {
                 if (lockFile == null) return;
 
@@ -52,7 +53,7 @@ namespace Associativy.TagsAdapter.Services
 
                 foreach (var content in pending)
                 {
-                    var tags = content.ContentItem.As<TagsPart>().CurrentTags;
+                    var tags = content.ContentItem.As<TagsPart>().Record.Tags.Select(contentTag => contentTag.TagRecord);
                     var tagNodes = new List<IContent>();
                     foreach (var tag in tags)
                     {
