@@ -1,4 +1,4 @@
-﻿@using Orchard.ContentManagement;
+@using Orchard.ContentManagement;
 @model Associativy.TagsAdapter.Models.AssociativyTagGraphPart
 
 <fieldset>
@@ -38,6 +38,6 @@
     <fieldset>
         <button type="button" id="button.ProcessTaggedItems" name="button.ProcessTaggedItems" value="ProcessTaggedItems"
             onclick="$.associativy.processTaggedItems(); return false;">@T("Process all tagged and contained items")</button>
-        <span class="hint">@T("This will process all tagged content item stored in the graph and e.g. add new connections.")</span>
+        @Html.Hint(T("This will process all tagged content item stored in the graph and e.g. add new connections."))
     </fieldset>   
 }
